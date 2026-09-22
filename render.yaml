@@ -1,0 +1,52 @@
+# =========================================================
+# Render 배포 설정 (Blueprint)
+# =========================================================
+# 사용법
+#   1) 이 코드를 GitHub 저장소에 올린다.
+#   2) Render 대시보드 > New > Blueprint 에서 저장소를 연결하면
+#      이 파일을 읽어 자동으로 웹 서비스가 만들어진다.
+#   3) 아래 sync:false 로 표시된 값(키)들은 Render 대시보드의
+#      Environment 탭에서 직접 입력한다. (코드에 키를 넣지 않기 위함)
+# =========================================================
+
+services:
+  - type: web
+    name: one-line-two-books
+    runtime: python
+    plan: free
+
+    # 라이브러리 설치
+    buildCommand: "pip install -r requirements.txt"
+
+    # 서버 실행 (Render가 정해 주는 $PORT 로 반드시 바인딩)
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+
+    envVars:
+      # --- Supabase (대시보드에서 직접 입력) ---
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+
+      # --- JWT ---
+      # JWT_SECRET_KEY 는 Render가 안전한 무작위 값으로 자동 생성
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRE_MINUTES
+        value: "60"
+
+      # --- 카카오 도서 (대시보드에서 직접 입력) ---
+      - key: KAKAO_REST_API_KEY
+        sync: false
+
+      # --- OpenAI (대시보드에서 직접 입력) ---
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+
+      # --- 파이썬 버전 고정 ---
+      - key: PYTHON_VERSION
+        value: "3.12.7"

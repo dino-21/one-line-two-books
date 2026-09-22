@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한 줄, 두 권</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="header">
+    <h1>한 줄, 두 권 📖</h1>
+    <p class="subtitle">
+      한 줄을 남기면, 공감해 주는 책과 다른 관점의 책을 함께 추천해 드려요.
+    </p>
+  </header>
+
+  <main class="container">
+
+    <!-- ===================================================== -->
+    <!-- 1) 로그인 / 회원가입 영역 (로그인 전에만 보임)          -->
+    <!-- ===================================================== -->
+    <section id="auth-section" class="card">
+      <div class="tab-buttons">
+        <button id="tab-login" class="tab active">로그인</button>
+        <button id="tab-signup" class="tab">회원가입</button>
+      </div>
+
+      <div class="form">
+        <input
+          type="text"
+          id="login-id"
+          placeholder="아이디 (4자 이상)"
+          autocomplete="username"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="비밀번호 (4자 이상)"
+          autocomplete="current-password"
+        />
+        <button id="auth-submit" class="primary">로그인</button>
+      </div>
+
+      <p id="auth-message" class="message"></p>
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- 2) 서비스 영역 (로그인 후에만 보임)                     -->
+    <!-- ===================================================== -->
+    <section id="app-section" class="hidden">
+
+      <!-- 로그인 정보 + 로그아웃 -->
+      <div class="user-bar">
+        <span id="welcome"></span>
+        <button id="logout" class="ghost">로그아웃</button>
+      </div>
+
+      <!-- 한 줄 일기 작성 -->
+      <div class="card">
+        <h2>오늘의 한 줄</h2>
+        <textarea
+          id="diary-content"
+          rows="2"
+          maxlength="500"
+          placeholder="지금 마음을 한 줄로 적어 보세요."
+        ></textarea>
+        <button id="diary-submit" class="primary">
+          한 줄 남기고 책 추천받기
+        </button>
+        <p id="diary-message" class="message"></p>
+      </div>
+
+      <!-- 추천 결과 (책 두 권) -->
+      <div id="recommend-result" class="recommend-grid"></div>
+
+      <!-- 지난 일기 목록 -->
+      <div class="card">
+        <h2>지난 한 줄</h2>
+        <div id="diary-list" class="diary-list"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
